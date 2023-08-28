@@ -1,4 +1,9 @@
 #!/bin/bash
+echo "Installing Protontricks"
+flatpak --system install com.github.Matoking.protontricks -y
+flatpak override --user --filesystem=/run/media/mmcblk0p1 com.github.Matoking.protontricks
+echo
+
 echo "Downloading & Installing .NET Desktop 6.0 Runtimes"
 flatpak run com.github.Matoking.protontricks 377840 dotnetdesktop6 &> /dev/null
 
