@@ -1,20 +1,23 @@
 #!/bin/bash
+shopt -s expand_aliases
+alias protontricks='flatpak run com.github.Matoking.protontricks'
+alias protontricks-launch='flatpak run --command=protontricks-launch com.github.Matoking.protontricks'
+
 echo "Installing Protontricks"
 flatpak --system install com.github.Matoking.protontricks -y
 flatpak override --user --filesystem=/run/media/mmcblk0p1 com.github.Matoking.protontricks
 echo
 
 echo "Downloading & Installing .NET Desktop 6.0 Runtimes"
-flatpak run com.github.Matoking.protontricks 377840 dotnetdesktop6 &> /dev/null
+protontricks 377840 dotnetdesktop6 &> /dev/null
 echo
 
 echo "Downloading Echo-S 9 Installer"
-curl -sSL -o "EchoS9.tmp.exe" "https://download.tsunamods.com/?id=7"
+curl -#SL -o "EchoS9.tmp.exe" "https://download.tsunamods.com/?id=7"
+echo
 
 echo "Launching Echo-S 9 Installer"
-STEAM_COMPAT_CLIENT_INSTALL_PATH="${HOME}/.local/share/Steam/" \
-STEAM_COMPAT_DATA_PATH="${HOME}/.local/share/Steam/steamapps/compatdata/377840/" \
-${HOME}/.local/share/Steam/steamapps/common/Proton\ 8.0/proton run EchoS9.tmp.exe &> /dev/null
+protontricks-launch --appid 377840 EchoS9.tmp.exe &> /dev/null
 rm EchoS9.tmp.exe
 echo
 
